@@ -11,7 +11,12 @@
     {
         static void Main(string[] args)
         {
+
+#if LINUX
+            string address = "http://*:9000/";
+#else
             string address = "http://localhost:9000/";
+#endif
 
             // Start OWIN host 
             using (WebApp.Start<Startup>(url: address))
