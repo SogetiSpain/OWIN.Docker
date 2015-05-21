@@ -10,4 +10,4 @@ WORKDIR OWIN.Docker/src
 RUN nuget restore OWIN.Docker.sln
 RUN xbuild OWIN.Docker.sln /p:DefineConstants=LINUX
 EXPOSE 9000 
-CMD mono OWIN.Docker/bin/Debug/OWIN.Docker.exe
+ENTRYPOINT ["mono", "OWIN.Docker/bin/Debug/OWIN.Docker.exe"]
