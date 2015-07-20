@@ -1,13 +1,29 @@
+# We use the microsoft/aspnet image as a starting point.
 FROM microsoft/aspnet
 
-RUN apt-get install git -y 
+# Install git
+RUN apt-get install git -y
+
+# Create a folder to clone our source code 
 RUN mkdir repositories
+
+# Set our working folder
 WORKDIR repositories
 
+# Clone the source code
 RUN git clone https://github.com/SogetiSpain/OWIN.Docker.git
+
+# Set our working folder
 WORKDIR OWIN.Docker/src
 
+# Restore nuget packages
 RUN nuget restore OWIN.Docker.sln
+
+# Build the application
 RUN xbuild OWIN.Docker.sln /p:DefineConstants=LINUX
-EXPOSE 9000 
+
+# Expose port 9000 for the application.
+EXPOSE 9000
+
+# Start de application using mono!!!
 ENTRYPOINT ["mono", "OWIN.Docker/bin/Debug/OWIN.Docker.exe"]
